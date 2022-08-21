@@ -4,11 +4,11 @@ import { sequelize } from "../../connect";
 const router = express.Router();
 let id = 1;
 
-export class Project extends Model<{ id: number; projectName: string; administrator: string }> {}
+export class Project extends Model<{ id: number; projectName: string; administrator: string }> { }
 Project.init(
   {
     id: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.UUID,
       allowNull: false,
       primaryKey: true,
     },
@@ -49,4 +49,5 @@ router.get("/get", (req, res, next) => {
   });
 });
 
-export const project = router;
+export default router
+
