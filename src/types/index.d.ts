@@ -3,8 +3,9 @@ declare interface API {
   methods: "get" | "post";
 }
 
-declare interface Project {
-  id: number;
-  projectName: string;
-  administrator: string;
+declare interface ProjectKeys {
+  id?: string;
+  projectName?: string;
+  administrator?: string;
+  administratorID?: string;
 }
