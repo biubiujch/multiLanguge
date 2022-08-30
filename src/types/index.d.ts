@@ -4,8 +4,14 @@ declare interface API {
 }
 
 declare interface ProjectKeys {
-  id?: string;
-  projectName?: string;
-  administrator?: string;
-  administratorID?: string;
+  id: string;
+  projectName: string;
+  administrator: string;
+  administratorID: string;
+}
+
+declare interface AdministratorKeys {
+  id: string;
+  administratorName: string;
+  passWord?: string;
 }

@@ -4,19 +4,21 @@ import { generateID } from "../utils";
 
 const router = express.Router();
 
-router.post("/create", (req, res, next) => {
-  const { projectName, administrator }: { projectName: string; administrator: string } = req.query as any;
-  Project.createItem(() => res.send("create success"), {
+router.post("/create", async (req, res, next) => {
+  const { projectName, administrator, administratorID } = req.query as any;
+  await Project.create({
     id: generateID(),
     projectName,
     administrator,
+    administratorID,
   });
+  res.send("create success");
 });
 
-router.get("/get", (req, res, next) => {
-  Project.getItem((data: any) => {
-    res.send(data);
-  });
+router.get("/getAll", async (req, res) => {
+  const data = await Project.findAll();
+  res.send(data);
 });
+
 
 export default router;

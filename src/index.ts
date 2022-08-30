@@ -5,6 +5,7 @@ import { PORT } from "./constant";
 const App = express();
 
 App.use("/api/project", project);
+
 App.get("/", (req, res) => {
   res.send("ok");
 });

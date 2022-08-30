@@ -1,16 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../connect";
-import { modelWrap } from "../utils";
 
-@modelWrap
-export class Project extends Model<{
-  id: string;
-  projectName: string;
-  administratorID: string;
-  administrator: string;
-}> {
-  static createItem: Function;
-  static getItem: Function;
+export class Project extends Model<ProjectKeys> {
 }
 
 Project.init(
