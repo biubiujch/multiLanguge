@@ -25,6 +25,16 @@ router.post("/delete", async (req, res, next) => {
   res.send("delete succes");
 });
 
+router.post("/update", async (req, res, next) => {
+  const { id, projectName } = req.query as any
+  await Project.update({ projectName: projectName }, {
+    where: {
+      id
+    }
+  })
+  res.send("update success")
+})
+
 router.get("/getAll", async (req, res) => {
   const data = await Project.findAll();
   res.send(data);
