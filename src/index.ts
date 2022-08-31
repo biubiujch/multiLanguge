@@ -3,6 +3,10 @@ import project from "./API/project";
 import { PORT } from "./constant";
 
 const App = express();
+App.all("*",(req,res,next)=>{
+  res.header("Access-Control-Allow-Origin", "*");
+  next()
+})
 
 App.use("/api/project", project);
 

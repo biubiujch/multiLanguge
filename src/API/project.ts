@@ -15,10 +15,19 @@ router.post("/create", async (req, res, next) => {
   res.send("create success");
 });
 
+router.post("/delete", async (req, res, next) => {
+  const { id } = req.query as any;
+  await Project.destroy({
+    where: {
+      id,
+    },
+  });
+  res.send("delete succes");
+});
+
 router.get("/getAll", async (req, res) => {
   const data = await Project.findAll();
   res.send(data);
 });
-
 
 export default router;
