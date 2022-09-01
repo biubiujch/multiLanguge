@@ -13,8 +13,7 @@ router.post("/login", async function (req, res, next) {
   });
   if (!user) {
     res.status(202).json({ message: "count not exsit" });
-  }
-  if (user?.getDataValue("password") === password) {
+  } else if (user?.getDataValue("password") === password) {
     res.send(user);
   } else {
     res.status(201).json({ message: "password error" });
