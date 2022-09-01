@@ -14,7 +14,10 @@ router.post("/login", async function (req, res, next) {
     if (!user) {
       res.status(202).json({ message: "count not exsit" });
     } else if (user?.getDataValue("password") === password) {
-      res.send(user);
+      res.send({
+        id: user.getDataValue("id"),
+        username: user.getDataValue("name")
+      });
     } else {
       res.status(201).json({ message: "password error" });
     }
