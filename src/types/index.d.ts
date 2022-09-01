@@ -12,6 +12,6 @@ declare interface ProjectKeys {
 
 declare interface AdministratorKeys {
   id: string;
-  administratorName: string;
-  passWord?: string;
+  name: string;
+  password?: string;
 }

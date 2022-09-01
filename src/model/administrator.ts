@@ -8,12 +8,13 @@ Administrator.init(
     id: {
       type: DataTypes.STRING,
       allowNull: false,
+      primaryKey: true,
     },
-    administratorName: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    passWord: {
+    password: {
       type: DataTypes.STRING,
       allowNull: true,
     },
