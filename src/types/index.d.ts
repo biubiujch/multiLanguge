@@ -15,3 +15,12 @@ declare interface AdministratorKeys {
   name: string;
   password?: string;
 }
+
+declare interface TranslateKeys {
+  id: string;
+  projectID: string;
+  srcText: string;
+  dstText: string;
+  to: string;
+  from: string;
+}

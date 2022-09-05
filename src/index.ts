@@ -1,6 +1,7 @@
 import express from "express";
 import project from "./API/project";
 import administrator from "./API/administrator";
+import translate from "./API/translate"
 import { PORT } from "./constant";
 
 const App = express();
@@ -11,6 +12,7 @@ App.all("*", (req, res, next) => {
 
 App.use("/api/project", project);
 App.use("/api/administrator", administrator);
+App.use("/api/translate", translate);
 
 App.get("/", (req, res) => {
   res.send("ok");
