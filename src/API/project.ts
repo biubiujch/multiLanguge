@@ -1,6 +1,6 @@
 import express from "express";
 import { Project } from "../model/project";
-import { generateID, InfoLogger } from "../utils";
+import { generateID, InfoLogger } from "../utils/utils";
 
 const router = express.Router();
 

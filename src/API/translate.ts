@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { Translate } from "../model/translate"
-import { generateID } from "../utils"
+import { generateID } from "../utils/utils"
 
 const router = Router()
 

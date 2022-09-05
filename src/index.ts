@@ -3,6 +3,9 @@ import project from "./API/project";
 import administrator from "./API/administrator";
 import translate from "./API/translate"
 import { PORT } from "./constant";
+import "./utils/parseENV"
+
+console.log(process.env.HOST)
 
 const App = express();
 App.all("*", (req, res, next) => {
