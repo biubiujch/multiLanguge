@@ -1,54 +1,44 @@
-import { Router } from "express"
-import { Translate } from "../model/translate"
-import { generateID } from "../utils/utils"
+import { Router } from "express";
+import { filterQuery, generateID, reqWrapper } from "../utils/utils";
+import { Source } from "../model/source";
+import { Destiantion } from "../model/destination";
 
-const router = Router()
+const router = Router();
 
-router.get(
-  "/getAll", async function (req, res) {
-    try {
-      const { projectID } = req.query as any
-      const data = await Translate.findAll({ where: { projectID } })
-      res.send(data)
-    } catch (e) {
-      res.status(400).json("getall fail")
-    }
-  }
-)
-
-router.post("/add", async function (req, res) {
-  try {
-    const { projectID, srcText, dstText, to, from, key } = req.query as any
-    if (!projectID || !srcText || !dstText || !to || !from || !key) throw new Error()
-    await Translate.create({
-      id: generateID(),
-      projectID,
-      srcText,
-      dstText,
-      to,
-      from,
-      key,
-    })
-    res.send("add success")
-  } catch (e) {
-    res.status(400).json("add fail")
-  }
-})
-
-
-router.post("/delete", async function (req, res) {
-  try {
-    const { id } = req.query as any
-    if (!id) throw new Error()
-    await Translate.destroy({
+router.get("/getAll", function (req, res) {
+  reqWrapper(req, res, async () => {
+    const query = filterQuery<SourceKeys>(req.query);
+    const data = await Source.findAll({
       where: {
-        id
-      }
-    })
-    res.send("delete success")
-  } catch (e) {
-    res.status(400).json("delete fail")
-  }
-})
+        ...query,
+      },
+    });
+    res.send();
+  });
+});
 
-export default router
+router.post("/add", function (req, res) {
+  reqWrapper(req, res, async () => {
+    const query = filterQuery<SourceKeys>(req.query);
+    await Source.create({
+      ...query,
+      id: generateID(),
+    });
+    res.send("add success");
+  });
+});
+
+router.post("/addDst", function (req, res) {
+  reqWrapper(req, res, async () => {
+    const query = filterQuery<DestinationKeys>(req.query);
+    await Destiantion.create({
+      ...query,
+      id: generateID(),
+    });
+  });
+  res.send("add success");
+});
+
+
+
+export default router;

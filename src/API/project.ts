@@ -1,6 +1,7 @@
 import express from "express";
 import { Project } from "../model/project";
-import { generateID, InfoLogger } from "../utils/utils";
+import { generateID } from "../utils/utils";
+import { InfoLogger } from "../utils/logger";
 
 const router = express.Router();
 
@@ -8,7 +9,7 @@ router.post("/create", async (req, res, next) => {
   const { projectName, administrator, administratorID } = req.query as any;
   try {
     if (!projectName || !administrator || !administratorID) {
-      throw new Error()
+      throw new Error();
     }
     await Project.create({
       id: generateID(),
@@ -18,7 +19,7 @@ router.post("/create", async (req, res, next) => {
     });
     res.send("create success");
   } catch (e) {
-    res.status(400).json("create fail")
+    res.status(400).json("create fail");
   }
 });
 
@@ -34,30 +35,31 @@ router.post("/delete", async (req, res, next) => {
   } catch (e) {
     res.status(400).json("delete fail");
   }
-
 });
 
 router.post("/update", async (req, res, next) => {
   try {
-    const { id, projectName } = req.query as any
+    const { id, projectName } = req.query as any;
     if (!id || !projectName) {
-      throw new Error()
+      throw new Error();
     }
-    await Project.update({ projectName: projectName }, {
-      where: {
-        id
+    await Project.update(
+      { projectName: projectName },
+      {
+        where: {
+          id,
+        },
       }
-    })
-    res.send("update success")
+    );
+    res.send("update success");
   } catch (e) {
-    res.status(400).json("update fail")
+    res.status(400).json("update fail");
   }
-
-})
+});
 
 router.get("/getAll", async (req, res) => {
   const data = await Project.findAll();
-  InfoLogger.log("info", "getdata")
+  InfoLogger.log("info", "getdata");
   res.send(data);
 });
 

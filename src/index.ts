@@ -1,11 +1,10 @@
 import express from "express";
 import project from "./API/project";
 import administrator from "./API/administrator";
-import translate from "./API/translate"
-import { PORT } from "./constant";
-import "./utils/parseENV"
+import translate from "./API/translate";
+import "./utils/parseENV";
 
-console.log(process.env.HOST)
+console.log(process.env.HOST);
 
 const App = express();
 App.all("*", (req, res, next) => {
@@ -21,6 +20,6 @@ App.get("/", (req, res) => {
   res.send("ok");
 });
 
-App.listen(PORT, () => {
-  console.log("server start on port " + PORT);
+App.listen(process.env.SERVER_PORT, () => {
+  console.log("server start on port " + process.env.SERVER_PORT);
 });
