@@ -29,7 +29,10 @@ Translate.init(
     }, from: {
       type: DataTypes.STRING,
       allowNull: false
-    },
+    }, key: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   },
   {
     sequelize,

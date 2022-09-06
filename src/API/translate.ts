@@ -18,15 +18,16 @@ router.get(
 
 router.post("/add", async function (req, res) {
   try {
-    const { projectID, srcText, dstText, to, from } = req.query as any
-    if (!projectID || !srcText || !dstText || !to || !from) throw new Error()
+    const { projectID, srcText, dstText, to, from, key } = req.query as any
+    if (!projectID || !srcText || !dstText || !to || !from || !key) throw new Error()
     await Translate.create({
       id: generateID(),
       projectID,
       srcText,
       dstText,
       to,
-      from
+      from,
+      key,
     })
     res.send("add success")
   } catch (e) {
@@ -49,4 +50,5 @@ router.post("/delete", async function (req, res) {
     res.status(400).json("delete fail")
   }
 })
+
 export default router

@@ -23,4 +23,5 @@ declare interface TranslateKeys {
   dstText: string;
   to: string;
   from: string;
+  key: string
 }
