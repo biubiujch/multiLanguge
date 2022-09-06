@@ -20,6 +20,7 @@ declare interface SourceKeys {
   id: string;
   key: string;
   from: string;
+  to?: string;
   content: string;
   projectID: string;
 }
@@ -29,4 +30,5 @@ declare interface DestinationKeys {
   srcID: string;
   content: string;
   to: string;
+  projectID: string
 }

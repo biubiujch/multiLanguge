@@ -1,7 +1,8 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../connect";
 
-export class Source extends Model<SourceKeys> {}
+export class Source extends Model<SourceKeys> {
+}
 
 Source.init(
   {

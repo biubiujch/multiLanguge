@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../connect";
 
-export class Destiantion extends Model<DestinationKeys> {}
+export class Destiantion extends Model<DestinationKeys> { }
 
 Destiantion.init(
   {
@@ -22,6 +22,10 @@ Destiantion.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    projectID: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   },
   {
     sequelize,

@@ -4,8 +4,6 @@ import administrator from "./API/administrator";
 import translate from "./API/translate";
 import "./utils/parseENV";
 
-console.log(process.env.HOST);
-
 const App = express();
 App.all("*", (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
