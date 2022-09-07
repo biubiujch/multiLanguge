@@ -16,19 +16,12 @@ declare interface AdministratorKeys {
   password?: string;
 }
 
-declare interface SourceKeys {
+declare interface TranslateKeys {
   id: string;
+  projectID: String;
   key: string;
+  src: string;
+  dst: string;
   from: string;
-  to?: string;
-  content: string;
-  projectID: string;
-}
-
-declare interface DestinationKeys {
-  id: string;
-  srcID: string;
-  content: string;
-  to: string;
-  projectID: string
+  to: string
 }

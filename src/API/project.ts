@@ -19,7 +19,7 @@ router.post("/create", async (req, res, next) => {
     });
     res.send("create success");
   } catch (e) {
-    res.status(400).json("create fail");
+    res.status(500).json("system busy")
   }
 });
 
@@ -33,7 +33,7 @@ router.post("/delete", async (req, res, next) => {
     });
     res.send("delete succes");
   } catch (e) {
-    res.status(400).json("delete fail");
+    res.status(500).json("system busy")
   }
 });
 
@@ -53,7 +53,7 @@ router.post("/update", async (req, res, next) => {
     );
     res.send("update success");
   } catch (e) {
-    res.status(400).json("update fail");
+    res.status(500).json("system busy")
   }
 });
 

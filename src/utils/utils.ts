@@ -18,12 +18,3 @@ export function filterQuery<T>(item: any) {
 
   return query as T;
 }
-
-export const reqWrapper: RequestHandler = async (req, res, next) => {
-  try {
-    // 在这里鉴权
-    await next();
-  } catch (e) {
-    res.status(500).json("system busy");
-  }
-};

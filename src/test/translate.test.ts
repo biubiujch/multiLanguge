@@ -1,15 +1,16 @@
 import axios from "axios";
 
 describe("translate", () => {
-  it("add", async () => {
-    const res = await axios.post("http://localhost:3000/api/translate/add", {
+  it("create", async () => {
+    const res = await axios.post("http://localhost:3000/api/translate/create", {}, {
       params: {
         key: "test",
         from: "zh",
+        to: "en",
         content: "测试",
         projectID: "1",
-      },
+      }
     });
-    console.log(res);
+    console.log(res,"return data");
   });
 });
