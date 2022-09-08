@@ -1,16 +1,14 @@
 import express from "express";
 import { Project } from "../model/project";
-import { generateID } from "../utils/utils";
+import { filterQuery, generateID } from "../utils/utils";
 import { InfoLogger } from "../utils/logger";
 
 const router = express.Router();
 
 router.post("/create", async (req, res, next) => {
-  const { projectName, administrator, administratorID } = req.query as any;
+
   try {
-    if (!projectName || !administrator || !administratorID) {
-      throw new Error();
-    }
+    const { projectName, administrator, administratorID } = filterQuery<ProjectKeys>(req.query)
     await Project.create({
       id: generateID(),
       projectName,
@@ -25,7 +23,7 @@ router.post("/create", async (req, res, next) => {
 
 router.post("/delete", async (req, res, next) => {
   try {
-    const { id } = req.query as any;
+    const { id } = filterQuery<ProjectKeys>(req.query)
     await Project.destroy({
       where: {
         id,
@@ -39,10 +37,7 @@ router.post("/delete", async (req, res, next) => {
 
 router.post("/update", async (req, res, next) => {
   try {
-    const { id, projectName } = req.query as any;
-    if (!id || !projectName) {
-      throw new Error();
-    }
+    const { id, projectName } = filterQuery<ProjectKeys>(req.query)
     await Project.update(
       { projectName: projectName },
       {

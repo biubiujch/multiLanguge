@@ -1,10 +1,10 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../connect";
 
-export class Translate extends Model<TranslateKeys> {
+export class Source extends Model<SourceKeys> {
 }
 
-Translate.init({
+Source.init({
   id: {
     type: DataTypes.STRING,
     primaryKey: true,
@@ -18,11 +18,7 @@ Translate.init({
     type: DataTypes.STRING,
     allowNull: false
   },
-  src: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  dst: {
+  text: {
     type: DataTypes.STRING,
     allowNull: false
   },
@@ -30,13 +26,9 @@ Translate.init({
     type: DataTypes.STRING,
     allowNull: false
   },
-  to: {
-    type: DataTypes.STRING,
-    allowNull: false
-  }
 }, {
   sequelize,
-  modelName: "Translate",
-  tableName: "translate",
+  modelName: "Source",
+  tableName: "source",
   timestamps: false,
 })
