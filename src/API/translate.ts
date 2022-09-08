@@ -14,7 +14,6 @@ router.get("/getAll", async function (req, res) {
         projectID
       }
     })
-    console.log(data[0].get())
     const dstData = await Target.findAll({
       where: {
         projectID

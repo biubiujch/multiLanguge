@@ -58,4 +58,18 @@ router.get("/getAll", async (req, res) => {
   res.send(data);
 });
 
+router.get("/detail", async function (req, res) {
+  try {
+    const { id } = filterQuery<ProjectKeys>(req.query)
+    const data = await Project.findOne({
+      where: {
+        id
+      }
+    })
+    res.send(data)
+  } catch (e) {
+    res.status(500).json("system busy")
+  }
+})
+
 export default router;
