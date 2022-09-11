@@ -1,8 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../connect";
 
-export class Project extends Model<ProjectKeys> {
-}
+export class Project extends Model<ProjectKeys> {}
 
 Project.init(
   {
@@ -20,6 +19,14 @@ Project.init(
       allowNull: false,
     },
     administrator: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    srcLang: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    dstLang: {
       type: DataTypes.STRING,
       allowNull: false,
     },

@@ -8,6 +8,8 @@ declare interface ProjectKeys {
   projectName: string;
   administrator: string;
   administratorID: string;
+  srcLang: string;
+  dstLang: string;
 }
 
 declare interface AdministratorKeys {
@@ -29,5 +31,5 @@ declare interface Targetkeys {
   projectID: string;
   srcID: string;
   to: string;
-  text: string
+  text: string;
 }
