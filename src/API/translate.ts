@@ -135,8 +135,8 @@ router.get("/deployment", async function (req, res) {
     Object.keys(group).forEach((key) => {
       data[key] = group[key].reduce((r, t) => ({ ...r, [t.to]: t.text }), {})
     })
-    fs.writeFile(path.resolve(__dirname, "../../file/source.json"), `${JSON.stringify(data)}`, "utf-8", () => {
-      res.send(path.resolve(__dirname, "../../file/source.json"))
+    fs.writeFile(path.resolve(__dirname, `../../file/${projectID}.json`), `${JSON.stringify(data)}`, "utf-8", () => {
+      res.send(path.resolve(__dirname, `../../file/${projectID}.json`))
     })
   } catch (e) {
     res.status(500).json("system busy")
