@@ -40,7 +40,6 @@ router.post("/create", async function (req, res) {
     const { projectID, from, text, key, dst } = filterQuery<SourceKeys & { dst: { to: string; text: string }[] }>(
       req.body
     );
-    console.log(req.body);
     const data = await Source.findOne({ where: { projectID, key } });
     if (data !== null) {
       res.status(400).json("item exist");
@@ -87,8 +86,31 @@ router.post("/delete", async function (req, res) {
     });
     res.send("delete success");
   } catch (e) {
+    console.log(e)
     res.status(500).json("system busy");
   }
 });
+
+router.post("/update", async function (req, res) {
+  try {
+    const { text, dst, id } = filterQuery<SourceKeys & { dst: { text: string, id: string }[] }>(
+      req.body
+    );
+    await Source.update({ text }, { where: { id } })
+    for await (let item of dst) {
+      await Target.update({
+        text: item.text
+      }, {
+        where: {
+          id: item.id
+        }
+      })
+    }
+    res.send("update success")
+  } catch (e) {
+    console.log(e)
+    res.status(500).json("system busy")
+  }
+})
 
 export default router;
