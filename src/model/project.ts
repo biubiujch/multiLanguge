@@ -30,6 +30,10 @@ Project.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    state: {
+      type: DataTypes.NUMBER,
+      allowNull: false,
+    },
   },
   {
     sequelize,

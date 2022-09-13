@@ -10,6 +10,7 @@ declare interface ProjectKeys {
   administratorID: string;
   srcLang: string;
   dstLang: string;
+  state: number;
 }
 
 declare interface AdministratorKeys {

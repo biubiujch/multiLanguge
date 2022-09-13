@@ -2,10 +2,9 @@ import { query, Router } from "express";
 import { filterQuery, generateID } from "../utils/utils";
 import { Source } from "../model/source";
 import { Target } from "../model/target";
-
+import { Project } from "../model/project";
 
 const router = Router();
-
 
 router.get("/getAll", async function (req, res) {
   try {
@@ -55,6 +54,7 @@ router.post("/create", async function (req, res) {
       text,
       key,
     });
+    await Project.update({ state: 1 }, { where: { id: projectID } });
     for await (const item of dst) {
       await Target.create({
         id: generateID(),
@@ -74,17 +74,18 @@ router.post("/create", async function (req, res) {
 router.post("/delete", async function (req, res) {
   try {
     const { id } = filterQuery<SourceKeys>(req.query);
-    const data = await Source.destroy({
+    await Source.destroy({
       where: {
         id,
       },
     });
+
     await Target.destroy({
       where: {
         srcID: id,
       },
     });
-    res.send(data);
+    res.send("delete success");
   } catch (e) {
     res.status(500).json("system busy");
   }

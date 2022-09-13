@@ -2,6 +2,8 @@ import express from "express";
 import { Project } from "../model/project";
 import { filterQuery, generateID } from "../utils/utils";
 import { InfoLogger } from "../utils/logger";
+import { Target } from "../model/target";
+import { Source } from "../model/source";
 
 const router = express.Router();
 
@@ -10,6 +12,7 @@ router.post("/create", async (req, res, next) => {
     const query = filterQuery<ProjectKeys>(req.query);
     await Project.create({
       ...query,
+      state: 0,
       id: generateID(),
     });
     res.send("create success");
@@ -27,6 +30,16 @@ router.post("/delete", async (req, res, next) => {
         id,
       },
     });
+    await Source.destroy({
+      where: {
+        projectID: id,
+      },
+    });
+    await Target.destroy({
+      where: {
+        projectID: id,
+      },
+    });
     res.send("delete succes");
   } catch (e) {
     res.status(500).json("system busy");
@@ -35,9 +48,9 @@ router.post("/delete", async (req, res, next) => {
 
 router.post("/update", async (req, res, next) => {
   try {
-    const { id, projectName } = filterQuery<ProjectKeys>(req.query);
+    const { id, projectName, srcLang, dstLang } = filterQuery<ProjectKeys>(req.query);
     await Project.update(
-      { projectName: projectName },
+      { projectName, srcLang, dstLang },
       {
         where: {
           id,
