@@ -1,7 +1,6 @@
 import express from "express";
 import { Project } from "../model/project";
 import { filterQuery, generateID } from "../utils/utils";
-import { InfoLogger } from "../utils/logger";
 import { Target } from "../model/target";
 import { Source } from "../model/source";
 
@@ -16,10 +15,7 @@ router.post("/create", async (req, res, next) => {
       id: generateID(),
     });
     res.send("create success");
-  } catch (e) {
-    console.log(e);
-    res.status(500).json("system busy");
-  }
+  } catch (e) { next(e) }
 });
 
 router.post("/delete", async (req, res, next) => {
@@ -41,9 +37,7 @@ router.post("/delete", async (req, res, next) => {
       },
     });
     res.send("delete succes");
-  } catch (e) {
-    res.status(500).json("system busy");
-  }
+  } catch (e) { next(e) }
 });
 
 router.post("/update", async (req, res, next) => {
@@ -58,21 +52,17 @@ router.post("/update", async (req, res, next) => {
       }
     );
     res.send("update success");
-  } catch (e) {
-    res.status(500).json("system busy");
-  }
+  } catch (e) { next(e) }
 });
 
-router.get("/getAll", async (req, res) => {
+router.get("/getAll", async (req, res, next) => {
   try {
     const data = await Project.findAll();
     res.send(data);
-  } catch (e) {
-    res.status(500).json("system busy");
-  }
+  } catch (e) { next(e) }
 });
 
-router.get("/detail", async function (req, res) {
+router.get("/detail", async function (req, res, next) {
   try {
     const { id } = filterQuery<ProjectKeys>(req.query);
     const data = await Project.findOne({
@@ -81,9 +71,7 @@ router.get("/detail", async function (req, res) {
       },
     });
     res.send(data);
-  } catch (e) {
-    res.status(500).json("system busy");
-  }
+  } catch (e) { next(e) }
 });
 
 export default router;

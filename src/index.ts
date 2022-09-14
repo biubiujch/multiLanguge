@@ -6,6 +6,7 @@ import "./utils/parseENV";
 import parser from "body-parser";
 import { expressjwt } from "express-jwt";
 import { handleAuth } from "./utils/auth";
+import { ErrorHandler } from "./utils/middleware";
 
 const App = express();
 App.all("*", (req, res, next) => {
@@ -27,6 +28,7 @@ App.use(parser.json());
 App.use("/api/project", project);
 App.use("/api/administrator", administrator);
 App.use("/api/translate", translate);
+App.use(ErrorHandler)
 
 App.listen(process.env.SERVER_PORT, () => {
   console.log("server start on port " + process.env.SERVER_PORT);

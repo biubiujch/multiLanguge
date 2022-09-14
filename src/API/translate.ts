@@ -9,7 +9,7 @@ import { groupBy } from "lodash"
 
 const router = Router();
 
-router.get("/getAll", async function (req, res) {
+router.get("/getAll", async function (req, res, next) {
   try {
     const { projectID } = filterQuery<SourceKeys & Targetkeys>(req.query);
     const data = await Source.findAll({
@@ -32,13 +32,10 @@ router.get("/getAll", async function (req, res) {
       });
     });
     res.send(result);
-  } catch (e) {
-    console.log(e);
-    res.status(500).json("system busy");
-  }
+  } catch (e) { next(e) }
 });
 
-router.post("/create", async function (req, res) {
+router.post("/create", async function (req, res, next) {
   try {
     const { projectID, from, text, key, dst } = filterQuery<SourceKeys & { dst: { to: string; text: string }[] }>(
       req.body
@@ -48,7 +45,6 @@ router.post("/create", async function (req, res) {
       res.status(400).json("item exist");
       return;
     }
-
     const result = await Source.create({
       id: generateID(),
       projectID,
@@ -68,13 +64,10 @@ router.post("/create", async function (req, res) {
       });
     }
     res.send(result);
-  } catch (e) {
-    console.log(e);
-    res.status(500).json("system busy");
-  }
+  } catch (e) { next(e) }
 });
 
-router.post("/delete", async function (req, res) {
+router.post("/delete", async function (req, res, next) {
   try {
     const { id } = filterQuery<SourceKeys>(req.query);
     await Source.destroy({
@@ -89,13 +82,10 @@ router.post("/delete", async function (req, res) {
       },
     });
     res.send("delete success");
-  } catch (e) {
-    console.log(e)
-    res.status(500).json("system busy");
-  }
+  } catch (e) { next(e) }
 });
 
-router.post("/update", async function (req, res) {
+router.post("/update", async function (req, res, next) {
   try {
     const { text, dst, id } = filterQuery<SourceKeys & { dst: { text: string, id: string }[] }>(
       req.body
@@ -111,13 +101,10 @@ router.post("/update", async function (req, res) {
       })
     }
     res.send("update success")
-  } catch (e) {
-    console.log(e)
-    res.status(500).json("system busy")
-  }
+  } catch (e) { next(e) }
 })
 
-router.get("/deployment", async function (req, res) {
+router.get("/deployment", async function (req, res, next) {
   try {
     fs.readdir(path.resolve(__dirname, "../../file"), (err) => {
       if (err) {
@@ -138,11 +125,7 @@ router.get("/deployment", async function (req, res) {
     fs.writeFile(path.resolve(__dirname, `../../file/${projectID}.json`), `${JSON.stringify(data)}`, "utf-8", () => {
       res.send(path.resolve(__dirname, `../../file/${projectID}.json`))
     })
-  } catch (e) {
-    res.status(500).json("system busy")
-  }
-
-
+  } catch (e) { next(e) }
 })
 
 export default router;

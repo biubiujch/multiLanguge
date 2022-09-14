@@ -6,8 +6,8 @@ import { setToken } from "../utils/auth";
 const router = Router();
 
 router.post("/login", async function (req, res, next) {
-  const { name, password } = req.query as Record<string, any>;
   try {
+    const { name, password } = req.query as Record<string, any>;
     const user = await Administrator.findOne({
       where: {
         name,
@@ -24,14 +24,15 @@ router.post("/login", async function (req, res, next) {
     } else {
       res.status(201).json({ message: "password error" });
     }
-  } catch (e) {
-    res.status(202).json({ message: "count not exsit" });
-  }
+  } catch (e) { next(e) }
 });
 
-router.post("/logout", async function (req, res, next) {});
+router.post("/logout", async function (req, res, next) {
+  try {
+  } catch (e) { next(e) }
+});
 
-router.post("/regist", async function (req, res) {
+router.post("/regist", async function (req, res, next) {
   try {
     const { name, password } = filterQuery<AdministratorKeys>(req.body);
     const data = await Administrator.create({
@@ -40,10 +41,7 @@ router.post("/regist", async function (req, res) {
       id: generateID(),
     });
     res.send(data);
-  } catch (e) {
-    res.status(500).json("system busy");
-    console.log(e);
-  }
+  } catch (e) { next(e) }
 });
 
 export default router;
