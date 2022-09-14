@@ -30,6 +30,7 @@ declare interface SourceKeys {
 declare interface Targetkeys {
   id: string;
   projectID: string;
+  key: string;
   srcID: string;
   to: string;
   text: string;

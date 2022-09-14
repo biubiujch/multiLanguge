@@ -24,6 +24,10 @@ Target.init({
   text: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  key: {
+    type: DataTypes.STRING,
+    allowNull: false
   }
 }, {
   sequelize,
