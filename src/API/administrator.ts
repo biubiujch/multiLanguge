@@ -44,4 +44,18 @@ router.post("/regist", async function (req, res, next) {
   } catch (e) { next(e) }
 });
 
+router.post("/changepsw", async function (req, res, next) {
+  try {
+    const { id, password } = filterQuery<AdministratorKeys>(req.body)
+    await Administrator.update({ password }, {
+      where: {
+        id
+      }
+    })
+    res.send("change success")
+  } catch (e) {
+    next(e)
+  }
+})
+
 export default router;
