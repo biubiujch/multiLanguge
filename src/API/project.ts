@@ -57,7 +57,12 @@ router.post("/update", async (req, res, next) => {
 
 router.get("/getAll", async (req, res, next) => {
   try {
-    const data = await Project.findAll();
+    const { auth } = req as any
+    const data = await Project.findAll({
+      where: {
+        administratorID: auth.userId
+      }
+    });
     res.send(data);
   } catch (e) { next(e) }
 });
